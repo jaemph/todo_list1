@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>MadLib One</title>
+</head>
+<body>
+<h1>MadLib One</h1>
+
+<div id="entry">
+  <h2>Jaemin's test page 1212</h2>
+  <p>Place: <input type="text" id="place_input"></p>
+  <p>Past Tense Verb: <input type="text" id="verb_input"></p>
+  <button onclick="madlibs()">Submit</button>
+</div>
+<div id="results">
+  <h2>Results</h2>
+  <p>Yesterday I saw <span id="place_output" class="outputs">(PLACE)</span>. For a while my eyes were <span id="verb_output" class="outputs">(PAST TENSE NOUN)</span>.</p>
+</div>
+</body>
+
+<style>
+  #results {
+    display: none;
+  }
+
+  span.outputs {
+    /*color: red;*/
+    font-weight: bold;
+  }
+</style>
+
+<script>
+  function madlibs() {
+    let place_input = document.getElementById("place_input");
+    document.getElementById("place_output").innerText = place_input.value;
+    let verb_input = document.getElementById("verb_input");
+    document.getElementById("verb_output").innerText = verb_input.value;
+
+    if(place_input.value == "" || verb_input.value == "") {
+      return false;
+    }
+
+    document.getElementById("results").style.display = "block";
+    document.getElementById("entry").style.display = "none";
+
+
+    // if(place_input.value != "" && verb_input.value != "") {
+    //   document.getElementById("results").style.display = "block";
+    //   document.getElementById("entry").style.display = "none";
+    // } else {
+    //   alert("Please enter values for every input!");
+    //   // let email = prompt("Please enter an email address");
+    //   // console.log(email);
+    // }
+
+
+    // if(true) {
+    //   console.log("it is true")
+    // }
+
+  }
+</script>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>MadLibs</title>
+
+  <style>
+    #results {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+
+<h1>MadLibs</h1>
+
+<div id="entry">
+  <h2>My test page</h2>
+
+  <p>Emotion: <input type="text" id="emotion_input"></p>
+  <p>Where: <input type="text" id="where_input"></p>
+  <p>Adjective (Block): <input type="text" id="block_input"></p>
+  <p>Where on the track: <input type="text" id="startline_input"></p>
+  <p>Plural nouns (Cleats): <input type="text" id="cleats_input"></p>
+  <p>Adjective (Gun): <input type="text" id="gun_input"></p>
+
+  <button onclick="madlibs()">Submit</button>
+</div>
+
+<div id="results">
+  <h2>Results</h2>
+  <p>
+   As the gunman says 'On your mark', we all kneel and place our cleats on the blocks. On the track,
+  the startline is always where runners feel the most nervous, since that's where your mind races, heart
+  races, and adrenaline builds. Even so, you must focus and be ready for when the gun goes off.
+
+</div>
+
+<script>
+  function madlibs() {
+
+    let place = document.getElementById("place_input").value;
+    let jersey = document.getElementById("jersey_input").value;
+    let hit = document.getElementById("hit_input").value;
+    let stadium = document.getElementById("stadium_input").value;
+    let throwThing = document.getElementById("throw_input").value;
+    let hotdog = document.getElementById("hotdog_input").value;
+    let drink = document.getElementById("drink_input").value;
+    let emotion = document.getElementById("emotion_input").value;
+
+    if (place == "" || jersey == "" || hit == "" || stadium == "" ||
+            throwThing == "" || hotdog == "" || drink == "" || emotion == "") {
+
+      document.getElementById("results").style.display = "none";
+      return;
+    }
+
+    document.getElementById("place_output").innerHTML = place;
+    document.getElementById("jersey_output").innerHTML = jersey;
+    document.getElementById("hit_output").innerHTML = hit;
+    document.getElementById("stadium_output").innerHTML = stadium;
+    document.getElementById("throw_output").innerHTML = throwThing;
+    document.getElementById("hotdog_output").innerHTML = hotdog;
+    document.getElementById("drink_output").innerHTML = drink;
+    document.getElementById("emotion_output").innerHTML = emotion;
+
+    document.getElementById("results").style.display = "block";
+  }
+</script>
+
+</body>
+</html>
