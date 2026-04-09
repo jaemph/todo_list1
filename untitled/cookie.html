@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+</head>
+<meta charset="UTF-8">
+<title>Hello</title>
+
+
+<h1>Jaemin's Morning To do</h1>
+<div id="container"
+
+<input placeholder="Brush my teeth"
+<button onclick="new_task()">Add<</button>
+<ul id="tasklist">
+
+    <li><input type="checkbox"> Shower</li>
+    <li><input type="checkbox"> Eat a banana</li>
+    <li><input type="checkbox"> Get Dressed</li>
+    <li><input type="checkbox"> Brush my teeth</li>
+    <li><input type="checkbox"> Comb hair</li>
+    <li><input type="checkbox"> Leave</li>
+
+</ul>
+<div id="message"></div>
+</div>
+
+<script>
+
+    function new_task() {
+        console.log("new task");
+    }
+
+    </head>
+    <body>
+
+    </body>
+    </html>
+    <style>
+        #task_list {
+        margin-left: 25px:
+    }
+
+        div.task {
+        backgrounf-color: white;
+        width: 80%
+        margin-bottom: 10px;
+        padding: 15px;
+        border-radius: 10px;
+    }
+    </style>
+
+    <script>
+        function setCookie(name, value, days) {
+        let d = new Date();
+        d.setTime(d.getTime() + (days*24*60*60*1000));
+        let expires = "expires=" + d.toUTCString();
+        document.cookie = name + "=" + value + ";" + expires + ";path=/";
+    }
+
+        function getCookie(name) {
+        let cname = name + "=";
+        let decoded = decodeURIComponent(document.cookie);
+        let arr = decoded.split(";");
+
+        for (let i = 0; i < arr.length; i++) {
+        let c = arr[i].trim();
+        if (c.indexOf(cname) === 0) {
+        return c.substring(cname.length);
+    }
+    }
+        return "";
+    }
+
+        function saveTask() {
+        let task = document.getElementById("task").value;
+        setCookie("task", task, 7);
+    }
+
+        window.onload = function() {
+        let saved = getCookie("task");
+        if (saved) {
+        document.body.innerHTML += "<p>" + saved + "</p>";
+    }
+    }
+</script>
+</html>
+</style>

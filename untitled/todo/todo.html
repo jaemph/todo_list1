@@ -5,7 +5,7 @@
     <title>Hello</title>
 
 
-    <h1>Jaemin's To do</h1>
+    <h1>Jaemin's Morning To do</h1>
    <div id="container"
 
         <input placeholder="Brush my teeth"
@@ -49,6 +49,13 @@
     </style>
 
     <script>
+
+        function setCookie(cname, cvalue, exdays) {
+        const d = new Date();
+        d.setTime(d.getTime() + exdays*24);
+
+
+
         function new_task(){
         let task_name = document.getElementByID("task").value
         console.log(task_name);
