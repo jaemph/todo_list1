@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Super Bowl MVP API</title>
+</head>
+<body>
+
+<h1>Super Bowl MVPs Since 1967</h1>
+
+<p>
+    <label for="year">Enter a year: </label>
+    <input type="number" id="year" value="2025">
+</p>
+
+<p>
+    <button onclick="findMVP()">Find MVP</button>
+</p>
+
+<p id="result"></p>
+
+<script>
+    const superBowlMVPs = [
+        { year: 1967, superBowl: "I", mvp: "Bart Starr", team: "Green Bay Packers", position: "QB", stats: "16/23 passing, 250 yards, 2 TDs" },
+        { year: 1968, superBowl: "II", mvp: "Bart Starr", team: "Green Bay Packers", position: "QB", stats: "13/24 passing, 202 yards, 1 TD" },
+        { year: 1969, superBowl: "III", mvp: "Joe Namath", team: "New York Jets", position: "QB", stats: "17/28 passing, 206 yards" },
+        { year: 1970, superBowl: "IV", mvp: "Len Dawson", team: "Kansas City Chiefs", position: "QB", stats: "12/17 passing, 142 yards, 1 TD" },
+        { year: 1971, superBowl: "V", mvp: "Chuck Howley", team: "Dallas Cowboys", position: "LB", stats: "2 interceptions, 1 fumble recovery" },
+        { year: 1972, superBowl: "VI", mvp: "Roger Staubach", team: "Dallas Cowboys", position: "QB", stats: "12/19 passing, 119 yards, 2 TDs" },
+        { year: 1973, superBowl: "VII", mvp: "Jake Scott", team: "Miami Dolphins", position: "DB", stats: "2 interceptions" },
+        { year: 1974, superBowl: "VIII", mvp: "Larry Csonka", team: "Miami Dolphins", position: "RB", stats: "33 carries, 145 rushing yards, 2 TDs" },
+        { year: 1975, superBowl: "IX", mvp: "Franco Harris", team: "Pittsburgh Steelers", position: "RB", stats: "34 carries, 158 rushing yards, 1 TD" },
+        { year: 1976, superBowl: "X", mvp: "Lynn Swann", team: "Pittsburgh Steelers", position: "WR", stats: "4 receptions, 161 receiving yards, 1 TD" },
+        { year: 1977, superBowl: "XI", mvp: "Fred Biletnikoff", team: "Oakland Raiders", position: "WR", stats: "4 receptions, 79 receiving yards" },
+        { year: 1978, superBowl: "XII", mvp: "Harvey Martin and Randy White", team: "Dallas Cowboys", position: "DE/DT", stats: "Defensive co-MVPs" },
+        { year: 1979, superBowl: "XIII", mvp: "Terry Bradshaw", team: "Pittsburgh Steelers", position: "QB", stats: "17/30 passing, 318 yards, 4 TDs" },
+        { year: 1980, superBowl: "XIV", mvp: "Terry Bradshaw", team: "Pittsburgh Steelers", position: "QB", stats: "14/21 passing, 309 yards, 2 TDs" },
+        { year: 1981, superBowl: "XV", mvp: "Jim Plunkett", team: "Oakland Raiders", position: "QB", stats: "13/21 passing, 261 yards, 3 TDs" },
+        { year: 1982, superBowl: "XVI", mvp: "Joe Montana", team: "San Francisco 49ers", position: "QB", stats: "14/22 passing, 157 yards, 1 TD" },
+        { year: 1983, superBowl: "XVII", mvp: "John Riggins", team: "Washington Redskins", position: "RB", stats: "38 carries, 166 rushing yards, 1 TD" },
+        { year: 1984, superBowl: "XVIII", mvp: "Marcus Allen", team: "Los Angeles Raiders", position: "RB", stats: "20 carries, 191 rushing yards, 2 TDs" },
+        { year: 1985, superBowl: "XIX", mvp: "Joe Montana", team: "San Francisco 49ers", position: "QB", stats: "24/35 passing, 331 yards, 3 TDs" },
+        { year: 1986, superBowl: "XX", mvp: "Richard Dent", team: "Chicago Bears", position: "DE", stats: "1.5 sacks, 2 forced fumbles" },
+        { year: 1987, superBowl: "XXI", mvp: "Phil Simms", team: "New York Giants", position: "QB", stats: "22/25 passing, 268 yards, 3 TDs" },
+        { year: 1988, superBowl: "XXII", mvp: "Doug Williams", team: "Washington Redskins", position: "QB", stats: "18/29 passing, 340 yards, 4 TDs" },
+        { year: 1989, superBowl: "XXIII", mvp: "Jerry Rice", team: "San Francisco 49ers", position: "WR", stats: "11 receptions, 215 yards, 1 TD" },
+        { year: 1990, superBowl: "XXIV", mvp: "Joe Montana", team: "San Francisco 49ers", position: "QB", stats: "22/29 passing, 297 yards, 5 TDs" },
+        { year: 1991, superBowl: "XXV", mvp: "Ottis Anderson", team: "New York Giants", position: "RB", stats: "21 carries, 102 rushing yards, 1 TD" },
+        { year: 1992, superBowl: "XXVI", mvp: "Mark Rypien", team: "Washington Redskins", position: "QB", stats: "18/33 passing, 292 yards, 2 TDs" },
+        { year: 1993, superBowl: "XXVII", mvp: "Troy Aikman", team: "Dallas Cowboys", position: "QB", stats: "22/30 passing, 273 yards, 4 TDs" },
+        { year: 1994, superBowl: "XXVIII", mvp: "Emmitt Smith", team: "Dallas Cowboys", position: "RB", stats: "30 carries, 132 rushing yards, 2 TDs" },
+        { year: 1995, superBowl: "XXIX", mvp: "Steve Young", team: "San Francisco 49ers", position: "QB", stats: "24/36 passing, 325 yards, 6 TDs" },
+        { year: 1996, superBowl: "XXX", mvp: "Larry Brown", team: "Dallas Cowboys", position: "CB", stats: "2 interceptions" },
+        { year: 1997, superBowl: "XXXI", mvp: "Desmond Howard", team: "Green Bay Packers", position: "KR/WR", stats: "99-yard kickoff return TD" },
+        { year: 1998, superBowl: "XXXII", mvp: "Terrell Davis", team: "Denver Broncos", position: "RB", stats: "30 carries, 157 rushing yards, 3 TDs" },
+        { year: 1999, superBowl: "XXXIII", mvp: "John Elway", team: "Denver Broncos", position: "QB", stats: "18/29 passing, 336 yards, 1 TD" },
+        { year: 2000, superBowl: "XXXIV", mvp: "Kurt Warner", team: "St. Louis Rams", position: "QB", stats: "24/45 passing, 414 yards, 2 TDs" },
+        { year: 2001, superBowl: "XXXV", mvp: "Ray Lewis", team: "Baltimore Ravens", position: "LB", stats: "Defensive leader, 5 tackles" },
+        { year: 2002, superBowl: "XXXVI", mvp: "Tom Brady", team: "New England Patriots", position: "QB", stats: "16/27 passing, 145 yards, 1 TD" },
+        { year: 2003, superBowl: "XXXVII", mvp: "Dexter Jackson", team: "Tampa Bay Buccaneers", position: "S", stats: "2 interceptions" },
+        { year: 2004, superBowl: "XXXVIII", mvp: "Tom Brady", team: "New England Patriots", position: "QB", stats: "32/48 passing, 354 yards, 3 TDs" },
+        { year: 2005, superBowl: "XXXIX", mvp: "Deion Branch", team: "New England Patriots", position: "WR", stats: "11 receptions, 133 yards" },
+        { year: 2006, superBowl: "XL", mvp: "Hines Ward", team: "Pittsburgh Steelers", position: "WR", stats: "5 receptions, 123 yards, 1 TD" },
+        { year: 2007, superBowl: "XLI", mvp: "Peyton Manning", team: "Indianapolis Colts", position: "QB", stats: "25/38 passing, 247 yards, 1 TD" },
+        { year: 2008, superBowl: "XLII", mvp: "Eli Manning", team: "New York Giants", position: "QB", stats: "19/34 passing, 255 yards, 2 TDs" },
+        { year: 2009, superBowl: "XLIII", mvp: "Santonio Holmes", team: "Pittsburgh Steelers", position: "WR", stats: "9 receptions, 131 yards, 1 TD" },
+        { year: 2010, superBowl: "XLIV", mvp: "Drew Brees", team: "New Orleans Saints", position: "QB", stats: "32/39 passing, 288 yards, 2 TDs" },
+        { year: 2011, superBowl: "XLV", mvp: "Aaron Rodgers", team: "Green Bay Packers", position: "QB", stats: "24/39 passing, 304 yards, 3 TDs" },
+        { year: 2012, superBowl: "XLVI", mvp: "Eli Manning", team: "New York Giants", position: "QB", stats: "30/40 passing, 296 yards, 1 TD" },
+        { year: 2013, superBowl: "XLVII", mvp: "Joe Flacco", team: "Baltimore Ravens", position: "QB", stats: "22/33 passing, 287 yards, 3 TDs" },
+        { year: 2014, superBowl: "XLVIII", mvp: "Malcolm Smith", team: "Seattle Seahawks", position: "LB", stats: "9 tackles, 1 interception returned for TD" },
+        { year: 2015, superBowl: "XLIX", mvp: "Tom Brady", team: "New England Patriots", position: "QB", stats: "37/50 passing, 328 yards, 4 TDs" },
+        { year: 2016, superBowl: "50", mvp: "Von Miller", team: "Denver Broncos", position: "LB", stats: "2.5 sacks, 2 forced fumbles" },
+        { year: 2017, superBowl: "LI", mvp: "Tom Brady", team: "New England Patriots", position: "QB", stats: "43/62 passing, 466 yards, 2 TDs" },
+        { year: 2018, superBowl: "LII", mvp: "Nick Foles", team: "Philadelphia Eagles", position: "QB", stats: "28/43 passing, 373 yards, 3 TDs" },
+        { year: 2019, superBowl: "LIII", mvp: "Julian Edelman", team: "New England Patriots", position: "WR", stats: "10 receptions, 141 yards" },
+        { year: 2020, superBowl: "LIV", mvp: "Patrick Mahomes", team: "Kansas City Chiefs", position: "QB", stats: "26/42 passing, 286 yards, 2 TDs" },
+        { year: 2021, superBowl: "LV", mvp: "Tom Brady", team: "Tampa Bay Buccaneers", position: "QB", stats: "21/29 passing, 201 yards, 3 TDs" },
+        { year: 2022, superBowl: "LVI", mvp: "Cooper Kupp", team: "Los Angeles Rams", position: "WR", stats: "8 receptions, 92 yards, 2 TDs" },
+        { year: 2023, superBowl: "LVII", mvp: "Patrick Mahomes", team: "Kansas City Chiefs", position: "QB", stats: "21/27 passing, 182 yards, 3 TDs" },
+        { year: 2024, superBowl: "LVIII", mvp: "Patrick Mahomes", team: "Kansas City Chiefs", position: "QB", stats: "34/46 passing, 333 yards, 2 TDs" },
+        { year: 2025, superBowl: "LIX", mvp: "Jalen Hurts", team: "Philadelphia Eagles", position: "QB", stats: "17/22 passing, 221 yards, 2 TDs; 72 rushing yards, 1 rushing TD" }
+    ];
+
+    function findMVP() {
+        let year = document.getElementById("year").value;
+        year = parseInt(year);
+
+        let result = superBowlMVPs.find(player => player.year === year);
+
+        if (result) {
+            document.getElementById("result").innerHTML =
+                "<strong>Year:</strong> " + result.year + "<br>" +
+                "<strong>Super Bowl:</strong> " + result.superBowl + "<br>" +
+                "<strong>MVP:</strong> " + result.mvp + "<br>" +
+                "<strong>Team:</strong> " + result.team + "<br>" +
+                "<strong>Position:</strong> " + result.position + "<br>" +
+                "<strong>Stats:</strong> " + result.stats;
+        } else {
+            document.getElementById("result").innerText =
+                "No Super Bowl MVP data found for that year. Try a year from 1967 to 2025.";
+        }
+    }
+</script>
+
+</body>
+</html>
+
